@@ -6,6 +6,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 passwordDB  =  os.getenv("PASSWORD")
+url = f"postgresql://postgres.aktwkvfuaezhhwozrikt:{passwordDB}@aws-1-sa-east-1.pooler.supabase.com:6543/postgres"
 
 def getCursor() -> Generator[psycopg.Cursor, None, None]:
     conn = psycopg.connect(url, sslmode="require")

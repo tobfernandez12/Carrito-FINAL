@@ -1,3 +1,7 @@
+Este es nuestro proyecto que realizamos en grupo.
+
+
+
 RUTAS CLIENTES:
 GET obtener_clientes http://127.0.0.1:8000/obtener_clientes
 GET obtener_cliente http://127.0.0.1:8000/obtener_cliente/2

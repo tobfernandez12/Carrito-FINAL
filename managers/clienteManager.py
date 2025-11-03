@@ -1,30 +1,34 @@
-from DBManager import DBManager
+import psycopg
+from models.models import Cliente
 
 class ClientesManager:
-    def __init__(self):
-        self.db = DBManager()
+    def obtener_clientes(self, cursor: psycopg.Cursor) -> list:
+        res = cursor.execute("SELECT id , nombre FROM cliente").fetchall()
+        return [{"id": row[0],"nombre": row[1]} for row in res]
 
-    def obtener_clientes(self):
-        res = self.db.cursor.execute("SELECT * FROM cliente").fetchall()
-        return [dict(row) for row in res]
-
-    def obtener_cliente(self, id: int):
-        res = self.db.cursor.execute("SELECT * FROM cliente WHERE id = ?", (id,)).fetchone()
+    def obtener_cliente(self, id: int, cursor: psycopg.Cursor):
+        print("aca", id, cursor)
+        res = cursor.execute("SELECT * FROM cliente WHERE id = %s", (id,)).fetchone()
         if res:
-            return dict (res)
+            print(res)
+            return {"id": res[0],"nombre":res[1]}
         return {"error": f"No se encontró cliente con id {id}"}
 
-    def crear_cliente(self, nombre: str):
-        self.db.cursor.execute("INSERT INTO cliente (nombre) VALUES (?)", (nombre,))
-        self.db.connection.commit()
+    def crear_cliente(self, cliente: Cliente, cursor: psycopg.Cursor):
+        cursor.execute(
+            "INSERT INTO cliente (nombre) VALUES (%s)",
+            (cliente.nombre,),
+        )
         return {"mensaje": "Cliente creado"}
 
-    def modificar_cliente(self, id: int, nombre: str):
-        self.db.cursor.execute("UPDATE cliente SET nombre = ? WHERE id = ?", (nombre, id))
-        self.db.connection.commit()
+    def modificar_cliente(self, id: int, updatedClient: str, cursor: psycopg.Cursor) -> str:
+        cursor.execute(
+            "UPDATE cliente SET nombre = %s WHERE id = %s",
+            (updatedClient, id),
+        )
+        
         return {"mensaje": "Cliente modificado"}
 
-    def eliminar_cliente(self, id: int):
-        self.db.cursor.execute("DELETE FROM cliente WHERE id = ?", (id,))
-        self.db.connection.commit()
+    def eliminar_cliente(self, id: int, cursor: psycopg.Cursor) -> str:
+        cursor.execute("DELETE FROM cliente WHERE id = %s", (id,))
         return {"mensaje": "Cliente eliminado"}

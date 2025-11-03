@@ -19,5 +19,5 @@ def obtener_productos(cursor: psycopg.Cursor = Depends(getCursor)):
 @router.post("/crear_producto")
 def crear_producto(Producto: Producto, cursor: psycopg.Cursor = Depends(getCursor)):
     res = manager.crear_producto(Producto, cursor)
-    return{"mensaje":"res"}
+    return{"mensaje": res}
     

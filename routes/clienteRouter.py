@@ -8,9 +8,8 @@ from managers.clienteManager import ClientesManager
 router = APIRouter(prefix="/clientes", tags=["Clientes Rutas"])
 clientManager = ClientesManager()
 
-router = APIRouter()
 manager = ClientesManager()
-getCursor ()
+
 @router.get("/obtener_clientes")
 def obtener_clientes(cursor: psycopg.Cursor = Depends (getCursor)):
     res = manager.obtener_clientes(cursor)

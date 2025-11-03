@@ -13,5 +13,7 @@ class ProductosManager:
         cursor.execute(
             "INSERT INTO producto (nombre, precio, cantidad) VALUES (%s,%s,%s)",
             (producto.nombre, producto.precio, producto.cantidad)
+            
         )
+        return {"Producto creado"}
     

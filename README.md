@@ -23,6 +23,8 @@ GET obtener_pedidos
 
 GET obtener_pedido 
 
-GET obtener pedido por cliente http://127.0.0.1:8000/obtener_pedido_por_cliente/1
-POST crear pedido http://127.0.0.1:8000/crear_pedido 
-PUT modificar_producto http://127.0.0.1:8000/modificar_producto 
+GET obtener pedido por cliente 
+
+POST crear pedido 
+
+PUT modificar_producto 
